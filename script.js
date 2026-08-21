@@ -2,222 +2,907 @@ const homeInfo = document.getElementById("home-info");
 
 const questions = [
 
-    // DAY 1 — THE OUTBREAK
-
     {
-        question: "The outbreak has just begun. You hear screaming outside. What do you do?",
+        question: "The outbreak has just begun. You wake up to no mobile network, sirens, neighbors shouting, and reports of violent attacks. You hear screaming outside. What do you do?",
         answers: [
-            ["Look outside to understand what is happening", 1],
-            ["Lock the doors, gather essentials and plan your next move", 5],
-            ["Leave immediately before the streets become crowded", 2],
-            ["Go outside to help whoever is screaming", 0]
+            ["Look outside", 3, null],
+            ["Secure your home", 5, null],
+            ["Leave immediately", 2, null],
+            ["Check the rooftop", 3, null]
         ]
     },
 
     {
-        question: "You have ten minutes before you need to leave. What is most important?",
+        question: "You have 30 minutes before the electricity goes out. What is most important?",
         answers: [
-            ["Food, water and a few useful tools", 2],
-            ["Take valuables in case money becomes useful later", 0],
-            ["Water, medicine, food and something to carry everything", 5],
-            ["Grab whatever can fit in your backpack", 1]
+            ["Clothes", 1, null],
+            ["Food, water, medicine, and tools", 5, null],
+            ["Valuables", 0, null],
+            ["Whatever fits in your bag", 3, null]
+        ]
+    },
+
+    {
+        question: "You hear pounding on a door downstairs. What do you do?",
+        answers: [
+            ["Barricade and observe", 5, null],
+            ["Help the neighbors", 3, 5],
+            ["Leave immediately", 4, 2],
+            ["Check the rooftop", 3, null]
+        ]
+    },
+
+    {
+        question: "Your neighbor is asking for help, but you don't know if they're infected. What do you do?",
+        answers: [
+            ["Open the door", 1, 4],
+            ["Shoot through the door", 0, 0],
+            ["Assess them from safety", 5, 5],
+            ["Ignore them", 3, 2]
+        ]
+    },
+
+    {
+        question: "The power is out, and you hear screams outside. What do you do?",
+        answers: [
+            ["Investigate", 1, 3],
+            ["Stay inside", 5, 3],
+            ["Turn on the lights", 0, null],
+            ["Search for survivors", 2, 5]
+        ]
+    },
+
+    {
+        question: "Something hits your neighbor's door, and the sound is now outside your floor. What do you do?",
+        answers: [
+            ["Stay silent", 5, null],
+            ["Prepare to fight", 3, null],
+            ["Move to the rooftop", 4, null],
+            ["Escape through the balcony", 2, null]
+        ]
+    },
+
+    {
+        question: "You hear 3–4 people moving toward your floor. What do you do?",
+        answers: [
+            ["Stay silent", 5, null],
+            ["Announce yourself", 3, 4],
+            ["Ambush them", 2, 1],
+            ["Escape to the rooftop", 4, 3]
+        ]
+    },
+
+    {
+        question: "Unknown people outside know you're inside and ask, \"How many people are inside?\" What do you say?",
+        answers: [
+            ["\"Two.\"", 2, 3],
+            ["\"More than you.\"", 3, 2],
+            ["\"Enough.\"", 4, 3],
+            ["Stay silent", 5, 3]
+        ]
+    },
+
+    {
+        question: "An infected person suddenly lunges at you. How do you react?",
+        answers: [
+            ["Attack immediately", 3, 2],
+            ["Step aside and attack", 5, 2],
+            ["Create distance", 4, 3],
+            ["Swing wildly", 1, 1]
+        ]
+    },
+
+    {
+        question: "You can take only three priority categories. What do you choose?",
+        answers: [
+            ["Food and water", 4, null],
+            ["Medical supplies", 4, null],
+            ["Weapons", 3, null],
+            ["Balanced supplies", 5, null]
+        ]
+    },
+
+    {
+        question: "You have 10 liters of water for three people. What do you do?",
+        answers: [
+            ["Drink freely", 1, 1],
+            ["Ration it", 5, 4],
+            ["Give most to one person", 2, 2],
+            ["Throw some away", 0, 0]
+        ]
+    },
+
+    {
+        question: "One member is using much more food and water than everyone else. What do you do?",
+        answers: [
+            ["Let them", 1, 1],
+            ["Confront them", 3, 3],
+            ["Set rations", 5, 5],
+            ["Give them less", 2, 1]
+        ]
+    },
+
+    {
+        question: "Your group needs a leader. Who would you support?",
+        answers: [
+            ["Strongest", 3, 2],
+            ["Most experienced", 5, 4],
+            ["Most trusted", 4, 5],
+            ["Most strategic", 4, 3]
+        ]
+    },
+
+    {
+        question: "One group member is becoming aggressive toward others. How do you handle the situation?",
+        answers: [
+            ["Confront them", 3, 3],
+            ["Avoid them", 2, 2],
+            ["Talk privately", 5, 5],
+            ["Remove them", 4, 1]
+        ]
+    },
+
+    {
+        question: "Your best friend from before the outbreak has become unstable and is no longer fit for the group. What do you do?",
+        answers: [
+            ["Give another chance", 2, 5],
+            ["Talk to them", 4, 5],
+            ["Restrict their role", 5, 3],
+            ["Remove them", 5, 1]
+        ]
+    },
+
+    {
+        question: "One group member refuses to follow safety rules. What do you do?",
+        answers: [
+            ["Ignore them", 1, 2],
+            ["Set rules and consequences", 5, 5],
+            ["Abandon them", 3, 1],
+            ["Let them decide", 2, 3]
+        ]
+    },
+
+    {
+        question: "Two members start arguing loudly while zombies are nearby. What do you prioritize?",
+        answers: [
+            ["Let them argue", 1, 2],
+            ["Keep everyone quiet", 5, 4],
+            ["Leave them behind", 3, 0],
+            ["Shout louder", 0, 0]
+        ]
+    },
+
+    {
+        question: "Two members strongly disagree about where to go. What do you do?",
+        answers: [
+            ["Let everyone vote", 4, 5],
+            ["Decide yourself", 3, 2],
+            ["Hear both sides and assess the risks", 5, 5],
+            ["Let them decide", 2, 3]
+        ]
+    },
+
+    {
+        question: "You discover that someone has been secretly stealing supplies to feed their family. What do you do?",
+        answers: [
+            ["Punish them", 3, 1],
+            ["Forgive them", 2, 5],
+            ["Fix the ration system", 5, 5],
+            ["Restrict their access", 4, 2]
+        ]
+    },
+
+    {
+        question: "A member secretly takes extra food. What is the biggest problem?",
+        answers: [
+            ["Lost food", 3, 2],
+            ["Loss of trust", 5, 5],
+            ["Their hunger", 3, 4],
+            ["The container", 1, 1]
+        ]
+    },
+
+    {
+        question: "You have only one packet of chips left. Who gets it?",
+        answers: [
+            ["Elderly person", 3, 4],
+            ["Pregnant woman", 4, 4],
+            ["7-year-old child", 4, 5],
+            ["Group leader", 5, 2]
+        ]
+    },
+
+    {
+        question: "You can save only one: a 5-year-old child or an elderly man. Who do you save?",
+        answers: [
+            ["The child", 4, 5],
+            ["The elderly man", 3, 4],
+            ["Whoever is closer", 5, 3],
+            ["Try to save both", 2, 5]
+        ]
+    },
+
+    {
+        question: "You can save only one: your doctor or your leader. Who do you save?",
+        answers: [
+            ["Doctor", 5, 4],
+            ["Leader", 4, 3],
+            ["Whoever is closer", 3, 3],
+            ["Try to save both", 2, 5]
+        ]
+    },
+
+    {
+        question: "You hear a child crying for help inside a building surrounded by zombies. What do you do?",
+        answers: [
+            ["Rescue alone", 2, 5],
+            ["Take the whole group", 2, 4],
+            ["Send two people", 5, 5],
+            ["Leave the child", 4, 0]
+        ]
+    },
+
+    {
+        question: "Three zombies are blocking your route. What do you do?",
+        answers: [
+            ["Observe them", 4, 3],
+            ["Distract them", 3, 3],
+            ["Kill the nearest one", 4, 1],
+            ["Move between them", 5, 3]
+        ]
+    },
+
+    {
+        question: "Several zombies are nearby but haven't noticed you. What do you do?",
+        answers: [
+            ["Take a longer route", 5, 3],
+            ["Run", 2, 2],
+            ["Wait", 4, 3],
+            ["Distract them", 2, 2]
+        ]
+    },
+
+    {
+        question: "You discover zombies are attracted to loud sounds. What do you do?",
+        answers: [
+            ["Use the car horn", 0, 2],
+            ["Fire your gun", 0, 1],
+            ["Stay quiet", 5, 4],
+            ["Play music", 1, 2]
         ]
     },
 
     {
         question: "You reach a road filled with abandoned vehicles. What do you do?",
         answers: [
-            ["Walk through the vehicles looking for supplies", 1],
-            ["Take the first vehicle that looks usable", 2],
-            ["Move around the area and find the least exposed route", 5],
-            ["Stay on the road because it is the fastest route", 0]
-        ]
-    },
-
-    // DAY 2 — ON THE MOVE
-
-    {
-        question: "Your group needs water. You find a stream outside the town.",
-        answers: [
-            ["Drink from it after checking that it looks clean", 0],
-            ["Fill containers and treat the water before drinking", 5],
-            ["Take only enough for today", 1],
-            ["Search for bottled water instead", 2]
+            ["Search the vehicles", 3, 3],
+            ["Take one", 2, 2],
+            ["Find a less exposed route", 5, 4],
+            ["Stay on the road", 1, 2]
         ]
     },
 
     {
-        question: "You spot a small pharmacy that appears abandoned.",
+        question: "You find a parked car with the keys inside. What do you check first?",
         answers: [
-            ["Enter quickly before someone else arrives", 1],
-            ["Ignore it and keep moving", 0],
-            ["Observe the building and surroundings before entering", 5],
-            ["Send one person inside while everyone waits outside", 2]
+            ["Radio", 2, null],
+            ["Fuel, condition, and surroundings", 5, null],
+            ["Glove compartment", 3, null],
+            ["Paint", 0, null]
         ]
     },
 
     {
-        question: "You hear several zombies nearby but they haven't noticed you.",
+        question: "You need to travel a long distance. Which route would you choose?",
         answers: [
-            ["Stay quiet and take a longer route around them", 5],
-            ["Run before they get any closer", 1],
-            ["Wait until they move away", 2],
-            ["Try to distract them and pass through", 0]
-        ]
-    },
-
-    // DAY 3 — SHELTER
-
-    {
-        question: "Your group finds an apparently abandoned house.",
-        answers: [
-            ["Check the main rooms quickly", 2],
-            ["Search the house thoroughly for supplies", 1],
-            ["Observe it from outside and check entrances before going in", 5],
-            ["Enter immediately because night is approaching", 0]
+            ["Highway", 2, null],
+            ["Back roads", 4, null],
+            ["Rural routes", 5, null],
+            ["Change routes frequently", 3, null]
         ]
     },
 
     {
-        question: "Someone in your group has a deep wound.",
+        question: "Choose your main mode of transportation.",
         answers: [
-            ["Clean and treat the wound using available supplies", 5],
-            ["Tell them to rest and see if it improves", 1],
-            ["Use whatever medicine you can find", 2],
-            ["Ignore it unless it becomes serious", 0]
-        ]
-    },
-
-    // DAY 4 — PEOPLE
-
-    {
-        question: "A stranger approaches your shelter asking for food.",
-        answers: [
-            ["Give them food immediately", 1],
-            ["Tell them to leave", 2],
-            ["Speak from a safe position and assess the situation first", 5],
-            ["Invite them inside to hear their story", 0]
+            ["Car", 4, null],
+            ["Truck", 5, null],
+            ["Motorcycle", 3, null],
+            ["On foot", 2, null]
         ]
     },
 
     {
-        question: "Another survivor offers to trade useful supplies.",
+        question: "You can take only one small utility item. Which do you choose?",
         answers: [
-            ["Trade carefully without revealing everything you have", 5],
-            ["Trust them if they seem friendly", 1],
-            ["Trade whatever they ask for", 0],
-            ["Refuse all contact with outsiders", 2]
+            ["Knife", 5, null],
+            ["Flashlight", 4, null],
+            ["Matches", 3, null],
+            ["Rope", 3, null]
         ]
     },
 
     {
-        question: "Two members of your group strongly disagree about where to go.",
+        question: "You find a friendly dog following your group. What do you do?",
         answers: [
-            ["Let the group vote on everything", 2],
-            ["Choose the route yourself without discussion", 1],
-            ["Hear both sides and make a decision based on risk", 5],
-            ["Follow whoever has the most experience", 0]
-        ]
-    },
-
-    // DAY 5 — RESOURCES
-
-    {
-        question: "Your food supply is running low.",
-        answers: [
-            ["Reduce portions and start looking for a sustainable source", 5],
-            ["Keep eating normally until the food is gone", 0],
-            ["Send everyone out searching for food", 2],
-            ["Save most of the food for emergencies", 1]
+            ["Keep it", 4, 5],
+            ["Shoo it away", 5, 3],
+            ["Feed it and leave", 3, 4],
+            ["Kill it for food", 3, 0]
         ]
     },
 
     {
-        question: "Heavy rain has made the roads dangerous.",
+        question: "You find an apparently abandoned house. What do you do?",
         answers: [
-            ["Continue because stopping wastes time", 0],
-            ["Wait for conditions to improve while protecting supplies", 5],
-            ["Find a shortcut through unfamiliar terrain", 2],
-            ["Split the group so some can continue ahead", 1]
+            ["Check the rooms", 3, null],
+            ["Search thoroughly", 4, null],
+            ["Observe from outside first", 5, null],
+            ["Enter immediately", 1, null]
         ]
     },
 
     {
-        question: "You discover a large amount of canned food, but carrying everything will slow you down.",
+        question: "You spot a small pharmacy that appears abandoned. What do you do?",
         answers: [
-            ["Take everything and deal with the weight later", 1],
-            ["Take only what can be carried comfortably", 2],
-            ["Prioritize high-value supplies while keeping the group mobile", 5],
-            ["Leave it because stopping is too risky", 0]
-        ]
-    },
-
-    // DAY 6 — ESCALATION
-
-    {
-        question: "You discover that the zombies have become faster than before.",
-        answers: [
-            ["Keep using the same survival strategy", 0],
-            ["Avoid populated areas and change your plans", 5],
-            ["Travel only during daylight", 2],
-            ["Move faster and take more risks", 1]
+            ["Enter quickly", 2, null],
+            ["Ignore it", 3, null],
+            ["Observe it first", 5, null],
+            ["Break in", 1, null]
         ]
     },
 
     {
-        question: "Your vehicle breaks down far from your destination.",
+        question: "Four armed people are looting a pharmacy. What do you do?",
         answers: [
-            ["Stay with the vehicle and hope someone finds you", 1],
-            ["Take essential supplies and plan the safest route on foot", 5],
-            ["Walk directly toward the nearest town", 2],
-            ["Spend the day trying to repair it", 0]
+            ["Wait for them to leave", 5, 3],
+            ["Change route", 4, 4],
+            ["Observe them", 5, 3],
+            ["Approach them", 2, 4]
         ]
     },
 
     {
-        question: "Your group discovers that another large group is approaching your location.",
+        question: "A stranger approaches your shelter asking for food. What do you do?",
         answers: [
-            ["Hide and observe before deciding what to do", 5],
-            ["Confront them immediately", 0],
-            ["Leave everything behind and run", 1],
-            ["Approach them openly and ask what they want", 2]
-        ]
-    },
-
-    // DAY 7 — THE ENDGAME
-
-    {
-        question: "You finally reach a settlement claiming to be safe.",
-        answers: [
-            ["Enter immediately because safety is more important", 1],
-            ["Stay outside and observe the settlement first", 5],
-            ["Ask the guards about their rules and resources", 2],
-            ["Leave because no settlement can be trusted", 0]
+            ["Give them food", 3, 5],
+            ["Tell them to leave", 4, 2],
+            ["Assess them from safety", 5, 5],
+            ["Invite them inside", 1, 4]
         ]
     },
 
     {
-        question: "The settlement offers you a permanent place to stay. What matters most before accepting?",
+        question: "Another survivor offers to trade supplies. What do you do?",
         answers: [
-            ["How comfortable the accommodation is", 0],
-            ["How much food they provide", 2],
-            ["Their security, leadership, resources and rules", 5],
-            ["Whether other survivors seem friendly", 1]
+            ["Trade carefully", 5, 5],
+            ["Trust them", 2, 4],
+            ["Trade whatever they want", 1, 2],
+            ["Refuse", 3, 3]
         ]
     },
 
     {
-        question: "You survived the first week. What is your biggest priority now?",
+        question: "A survivor claims to know a safe shelter. What do you do?",
         answers: [
-            ["Find a better weapon", 2],
-            ["Rest and stop worrying about the future", 0],
-            ["Build a sustainable supply of food, water, shelter and security", 5],
-            ["Travel farther away from the outbreak", 1]
+            ["Trust them", 1, 4],
+            ["Assume they're dangerous", 3, 2],
+            ["Verify their information", 5, 5],
+            ["Give them supplies", 1, 5]
+        ]
+    },
+
+    {
+        question: "You find a warehouse with possible food, but hear movement inside. What do you do?",
+        answers: [
+            ["Rush inside", 1, 1],
+            ["Observe and plan", 5, 4],
+            ["Set it on fire", 0, 0],
+            ["Send the weakest person", 0, 0]
+        ]
+    },
+
+    {
+        question: "You find a large amount of canned food, but carrying it all will slow you down. What do you do?",
+        answers: [
+            ["Take everything", 2, 2],
+            ["Take what you can carry", 4, 4],
+            ["Prioritize valuable supplies", 5, 5],
+            ["Leave it", 3, 3]
+        ]
+    },
+
+    {
+        question: "Your group needs water and finds a stream outside town. What do you do?",
+        answers: [
+            ["Drink it", 1, 2],
+            ["Treat it first", 5, 4],
+            ["Take enough for today", 3, 3],
+            ["Avoid it", 4, 3]
+        ]
+    },
+
+    {
+        question: "Your food supply is running low. What do you do?",
+        answers: [
+            ["Reduce portions and find more", 5, 4],
+            ["Eat normally", 1, 2],
+            ["Send everyone searching", 2, 3],
+            ["Save most of it", 4, 3]
+        ]
+    },
+
+    {
+        question: "You have enough food for only 5 of your 8 group members. What do you do?",
+        answers: [
+            ["Equal rations", 4, 5],
+            ["Send people for food", 3, 3],
+            ["Prioritize vulnerable members", 5, 5],
+            ["Leave some behind", 2, 0]
+        ]
+    },
+
+    {
+        question: "You find a large military supply cache in a zombie-infested area. What do you do?",
+        answers: [
+            ["Take the risk", 2, 2],
+            ["Leave it", 4, 3],
+            ["Send a scout", 5, 4],
+            ["Wait", 3, 3]
+        ]
+    },
+
+    {
+        question: "Heavy rain has made the roads dangerous. What do you do?",
+        answers: [
+            ["Continue", 1, 2],
+            ["Wait safely", 5, 4],
+            ["Take an unfamiliar shortcut", 2, 2],
+            ["Split the group", 1, 1]
+        ]
+    },
+
+    {
+        question: "Your vehicle breaks down far from your destination. What do you do?",
+        answers: [
+            ["Stay with it", 2, 3],
+            ["Take supplies and continue on foot", 5, 4],
+            ["Walk to the nearest town", 3, 3],
+            ["Repair it", 3, 3]
+        ]
+    },
+
+    {
+        question: "You're low on fuel. You can reach a town for supplies or head toward a guaranteed water source. Which do you choose?",
+        answers: [
+            ["Town", 3, 3],
+            ["Water", 5, 4],
+            ["Split the group", 2, 2],
+            ["Search first", 4, 4]
+        ]
+    },
+
+    {
+        question: "Your vehicle may cause a bridge to collapse. What do you do?",
+        answers: [
+            ["Cross quickly", 1, 2],
+            ["Continue on foot", 4, 3],
+            ["Find another route", 5, 4],
+            ["Test it first", 3, 3]
+        ]
+    },
+
+    {
+        question: "Your wife becomes pregnant while you're still traveling. What do you do?",
+        answers: [
+            ["Find a doctor", 5, 5],
+            ["Find a community", 4, 5],
+            ["Settle somewhere safe", 4, 5],
+            ["Continue traveling", 2, 2]
+        ]
+    },
+
+    {
+        question: "A member has a deep, bleeding wound and you suspect a zombie bite. What do you do?",
+        answers: [
+            ["Use medical supplies", 4, 4],
+            ["Use makeshift bandages", 3, 3],
+            ["Quarantine and observe", 5, 3],
+            ["Treat and quarantine", 5, 5]
+        ]
+    },
+
+    {
+        question: "You can treat either one critically injured person or three mildly injured people. What do you choose?",
+        answers: [
+            ["Critical patient", 4, 3],
+            ["Three patients", 5, 5],
+            ["Divide medicine", 2, 4],
+            ["Group vote", 3, 5]
+        ]
+    },
+
+    {
+        question: "Your best fighter is becoming reckless and putting everyone at risk. What do you do?",
+        answers: [
+            ["Remove combat duties", 5, 4],
+            ["Confront them", 4, 4],
+            ["Keep them", 2, 2],
+            ["Monitor them", 3, 3]
+        ]
+    },
+
+    {
+        question: "A trusted member makes a mistake that attracts zombies and gets someone injured. What do you do?",
+        answers: [
+            ["Forgive them", 2, 5],
+            ["Remove responsibilities", 5, 4],
+            ["Punish them", 3, 1],
+            ["Let the group decide", 4, 5]
+        ]
+    },
+
+    {
+        question: "A trusted member secretly hides a zombie bite. What do you do?",
+        answers: [
+            ["Isolate them", 5, 4],
+            ["Question them first", 3, 4],
+            ["Let the group decide", 3, 5],
+            ["Expel them", 4, 1]
+        ]
+    },
+
+    {
+        question: "A member wants to leave the group with their share of supplies. What do you do?",
+        answers: [
+            ["Let them take everything", 1, 3],
+            ["Give a fair share", 5, 5],
+            ["Convince them to stay", 3, 4],
+            ["Don't let them leave", 2, 0]
+        ]
+    },
+
+    {
+        question: "A grieving member has stopped contributing to the group. What do you do?",
+        answers: [
+            ["Give them time", 4, 5],
+            ["Force them back", 2, 1],
+            ["Reduce responsibilities", 5, 4],
+            ["Remove them", 3, 1]
+        ]
+    },
+
+    {
+        question: "You discover your leader is secretly keeping extra food. What do you do?",
+        answers: [
+            ["Confront privately", 4, 5],
+            ["Expose them", 3, 4],
+            ["Remove them", 5, 3],
+            ["Keep quiet", 1, 1]
+        ]
+    },
+
+    {
+        question: "You receive a radio message claiming there is a safe settlement 50 km away. What do you do?",
+        answers: [
+            ["Leave immediately", 2, 3],
+            ["Ignore it", 3, 2],
+            ["Gather information first", 5, 4],
+            ["Send everyone separately", 1, 2]
+        ]
+    },
+
+    {
+        question: "Another large group is approaching your location. What do you do?",
+        answers: [
+            ["Hide and observe", 5, 4],
+            ["Confront them", 1, 1],
+            ["Run", 3, 2],
+            ["Approach them openly", 3, 5]
+        ]
+    },
+
+    {
+        question: "Another large community approaches your territory, but you don't know whether they're friendly. What do you do?",
+        answers: [
+            ["Attack", 1, 1],
+            ["Let them in", 2, 5],
+            ["Communicate and observe", 5, 5],
+            ["Abandon the settlement", 3, 2]
+        ]
+    },
+
+    {
+        question: "You discover that another group may be occupying a location you planned to use as a base. What do you do?",
+        answers: [
+            ["Confront them", 2, 2],
+            ["Find another location", 5, 4],
+            ["Observe them first", 5, 5],
+            ["Offer to share it", 4, 5]
+        ]
+    },
+
+    {
+        question: "Where would you establish your base?",
+        answers: [
+            ["Supermarket", 2, null],
+            ["Farmhouse", 4, null],
+            ["Police station", 5, null],
+            ["Mountain settlement", 5, null]
+        ]
+    },
+
+    {
+        question: "Your settlement can shelter only half of the people asking for help. Who do you accept?",
+        answers: [
+            ["Most vulnerable", 4, 5],
+            ["Most useful", 5, 2],
+            ["Families", 4, 4],
+            ["Nobody", 2, 1]
+        ]
+    },
+
+    {
+        question: "A settlement demands your weapons before letting you enter. What do you do?",
+        answers: [
+            ["Surrender", 2, 3],
+            ["Refuse", 3, 3],
+            ["Negotiate", 5, 5],
+            ["Pretend to agree", 4, 2]
+        ]
+    },
+
+    {
+        question: "You finally reach a settlement claiming to be safe. What do you do?",
+        answers: [
+            ["Enter immediately", 2, 3],
+            ["Observe it first", 5, 4],
+            ["Ask about rules and resources", 5, 5],
+            ["Leave", 3, 3]
+        ]
+    },
+
+    {
+        question: "The settlement offers you a permanent place to stay. What matters most?",
+        answers: [
+            ["Comfort", 2, 2],
+            ["Food", 4, 4],
+            ["Security, leadership, resources, and rules", 5, 5],
+            ["Friendly people", 3, 5]
+        ]
+    },
+
+    {
+        question: "Your settlement has been safe for months, and people are becoming careless. What do you do?",
+        answers: [
+            ["Increase restrictions", 3, 2],
+            ["Let them relax", 2, 4],
+            ["Regular drills", 5, 4],
+            ["Wait for danger", 1, 1]
+        ]
+    },
+
+    {
+        question: "Your settlement's walls can no longer withstand a major attack. What do you do?",
+        answers: [
+            ["Reinforce them", 4, 4],
+            ["Build new walls", 5, 4],
+            ["Relocate", 3, 3],
+            ["Create escape routes", 5, 5]
+        ]
+    },
+
+    {
+        question: "Your settlement is attacked. You can defend only the food storage or the medical center. Which do you protect?",
+        answers: [
+            ["Food storage", 4, 3],
+            ["Medical center", 5, 5],
+            ["Split defenders", 3, 4],
+            ["Evacuate supplies", 4, 4]
+        ]
+    },
+
+    {
+        question: "A skilled hunter refuses to follow group rules. What do you do?",
+        answers: [
+            ["Give privileges", 3, 2],
+            ["Same rules", 5, 5],
+            ["Limited independence", 4, 4],
+            ["Ask them to leave", 3, 2]
+        ]
+    },
+
+    {
+        question: "One group member is extremely useful but constantly challenges your leadership. What do you do?",
+        answers: [
+            ["Remove them", 3, 2],
+            ["Ignore them", 2, 2],
+            ["Give them responsibility", 5, 4],
+            ["Work with them", 5, 5]
+        ]
+    },
+
+    {
+        question: "You can broadcast your location to ask for help, but dangerous people may hear it. What do you do?",
+        answers: [
+            ["Broadcast", 2, 4],
+            ["Stay silent", 5, 3],
+            ["Fake location", 4, 2],
+            ["Send a coded message", 5, 4]
+        ]
+    },
+
+    {
+        question: "You discover a possible cure, but testing it could be dangerous. Who decides whether it is used?",
+        answers: [
+            ["Doctor", 5, 4],
+            ["Leader", 3, 3],
+            ["Patient", 2, 5],
+            ["Entire group", 4, 5]
+        ]
+    },
+
+    {
+        question: "A captured enemy claims to have information about a much larger hostile group. What do you do?",
+        answers: [
+            ["Trade freedom for information", 4, 4],
+            ["Keep and question them", 5, 2],
+            ["Don't trust them", 3, 3],
+            ["Use the information and imprison them", 4, 1]
+        ]
+    },
+
+    {
+        question: "You discover zombies have become faster than before. What do you do?",
+        answers: [
+            ["Keep the same strategy", 0, 2],
+            ["Change your plans", 5, 4],
+            ["Travel only during daylight", 4, 3],
+            ["Take more risks", 1, 1]
+        ]
+    },
+
+    {
+        question: "The zombies are behaving differently than before. What do you assume?",
+        answers: [
+            ["Nothing changed", 1, 2],
+            ["The situation is evolving", 5, 4],
+            ["They're becoming friendly", 0, 4],
+            ["They'll disappear", 0, 1]
+        ]
+    },
+
+    {
+        question: "Your shelter has been discovered by a large group of zombies. You have two escape routes. What matters most?",
+        answers: [
+            ["Which looks better", 1, 2],
+            ["Threats and destination", 5, 4],
+            ["Which is shorter", 2, 2],
+            ["Flip a coin", 0, 1]
+        ]
+    },
+
+    {
+        question: "You hear that a remote island may be unaffected. You have one chance to reach it. What do you do?",
+        answers: [
+            ["Go", 3, 3],
+            ["Stay", 4, 3],
+            ["Send scouts", 5, 4],
+            ["Gather information", 5, 4]
+        ]
+    },
+
+    {
+        question: "You discover a large amount of supplies, but taking them will slow the group and increase the risk of being caught. What do you do?",
+        answers: [
+            ["Take everything", 2, 2],
+            ["Take only essentials", 4, 4],
+            ["Take high-value supplies", 5, 5],
+            ["Leave everything", 3, 3]
+        ]
+    },
+
+    {
+        question: "A member of your group has become emotionally unstable after losing someone close to them. What do you do?",
+        answers: [
+            ["Give them time", 4, 5],
+            ["Keep them busy", 4, 3],
+            ["Watch them closely", 5, 3],
+            ["Remove them", 2, 1]
+        ]
+    },
+
+    {
+        question: "Your group has a chance to rescue another group, but doing so will consume most of your remaining fuel. What do you do?",
+        answers: [
+            ["Rescue them", 3, 5],
+            ["Leave them", 4, 2],
+            ["Limited rescue", 5, 5],
+            ["Contact them first", 5, 4]
+        ]
+    },
+
+    {
+        question: "Your group discovers that another large group is approaching your location. You don't know their intentions. What do you do?",
+        answers: [
+            ["Hide and observe", 5, 4],
+            ["Prepare to attack", 2, 1],
+            ["Contact them", 4, 5],
+            ["Leave", 3, 3]
+        ]
+    },
+
+    {
+        question: "Children born after the outbreak have never seen the old world. What should they learn?",
+        answers: [
+            ["Survival only", 4, 3],
+            ["History and survival", 5, 5],
+            ["Forget the old world", 2, 1],
+            ["Military skills", 4, 3]
+        ]
+    },
+
+    {
+        question: "Years into the outbreak, your settlement is stable but resources are becoming harder to find. What should you focus on?",
+        answers: [
+            ["Better weapons", 3, 2],
+            ["Food and water production", 5, 5],
+            ["Explore farther", 3, 4],
+            ["Move again", 2, 3]
+        ]
+    },
+
+    {
+        question: "Your group has survived for years. What should become your biggest priority?",
+        answers: [
+            ["Expansion", 2, 2],
+            ["Sustainable survival", 5, 5],
+            ["Finding other survivors", 4, 4],
+            ["Returning to cities", 2, 3]
+        ]
+    },
+
+    {
+        question: "A member of your group secretly takes extra medicine for their family. What do you do?",
+        answers: [
+            ["Punish them", 3, 1],
+            ["Forgive them", 2, 5],
+            ["Set stricter rules", 5, 4],
+            ["Give them less access", 4, 3]
+        ]
+    },
+
+    {
+        question: "Your settlement has limited resources, but a doctor arrives asking for protection in exchange for medical knowledge. What do you do?",
+        answers: [
+            ["Accept them", 4, 5],
+            ["Refuse them", 2, 2],
+            ["Test their knowledge first", 5, 4],
+            ["Trade protection for medicine", 5, 5]
+        ]
+    },
+
+    {
+        question: "A group member discovers that their family may still be alive far away. Leaving could endanger the entire group. What do you do?",
+        answers: [
+            ["Let them go", 3, 5],
+            ["Stop them", 2, 1],
+            ["Send a small team", 5, 5],
+            ["Search for information first", 5, 4]
+        ]
+    },
+
+    {
+        question: "After years of survival, you discover a functioning community offering a chance to rebuild civilization. What do you do?",
+        answers: [
+            ["Join them", 4, 5],
+            ["Stay independent", 3, 3],
+            ["Investigate first", 5, 4],
+            ["Send representatives", 5, 5]
         ]
     }
 
 ];
-
 
 // ===============================
 // QUIZ STATE
@@ -355,14 +1040,15 @@ function showResult() {
     resultScreen.classList.remove("hidden");
 
 
-    // Current temporary quiz:
-    // 20 questions × maximum 5 points = 100
+// ===============================
+// FINAL SCORES
+// ===============================
 
-    const survivalPercentage =
+const survivalPercentage =
     Math.round((survivalScore / 450) * 100);
 
 const moralityPercentage =
-    Math.round((moralityScore / 1580) * 100);
+    Math.round((moralityScore / 394) * 100);
 
     document.getElementById("final-score").textContent =
         survivalPercentage;
@@ -444,33 +1130,60 @@ const moralityPercentage =
         icon;
 
 
-    // Morality is intentionally left blank
-    // until the finalized morality data is added.
+   // ===============================
+// MORALITY RESULT
+// ===============================
 
-    document.getElementById("morality-score").textContent =
+const moralityPercentage =
+    Math.round((moralityScore / 394) * 100);
+
+document.getElementById("morality-score").textContent =
     moralityPercentage;
 
+
+let moralityTitle;
 let moralityDescription;
 
+
 if (moralityPercentage <= 20) {
+
+    moralityTitle = "Ruthless Survivor";
+
     moralityDescription =
-        "You put survival above almost everything else.";
+        "You put survival above almost everything else. In the apocalypse, you are willing to make difficult choices without letting emotions get in the way.";
+
 } else if (moralityPercentage <= 40) {
+
+    moralityTitle = "Pragmatic Survivor";
+
     moralityDescription =
-        "You are willing to make some hard choices when survival is at stake.";
+        "You care about others, but survival comes first when resources and safety are limited.";
+
 } else if (moralityPercentage <= 60) {
+
+    moralityTitle = "Balanced Survivor";
+
     moralityDescription =
-        "You try to balance survival with the needs of other people.";
+        "You try to balance survival with compassion. You understand that protecting your group sometimes requires difficult choices.";
+
 } else if (moralityPercentage <= 80) {
+
+    moralityTitle = "Compassionate Survivor";
+
     moralityDescription =
-        "You strongly value people and fairness, even during the apocalypse.";
+        "You place considerable value on helping others while still understanding the realities of survival.";
+
 } else {
+
+    moralityTitle = "Humanitarian";
+
     moralityDescription =
-        "You place an exceptionally high value on human life, fairness and protecting others.";
+        "Even during the apocalypse, you strongly believe that protecting human life and helping others should remain a priority.";
 }
 
+
 document.getElementById("morality-description").textContent =
-    moralityDescription;
+    moralityTitle + " — " + moralityDescription;
 
 
     progressBar.style.width = "100%";
