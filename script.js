@@ -1134,9 +1134,6 @@ const moralityPercentage =
 // MORALITY RESULT
 // ===============================
 
-const moralityPercentage =
-    Math.round((moralityScore / 394) * 100);
-
 document.getElementById("morality-score").textContent =
     moralityPercentage;
 
