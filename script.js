@@ -1135,8 +1135,7 @@ const moralityPercentage =
 // ===============================
 
 document.getElementById("morality-score").textContent =
-    moralityPercentage;
-
+    moralityPercentage + "%";
 
 let moralityTitle;
 let moralityDescription;
