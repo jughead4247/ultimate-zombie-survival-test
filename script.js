@@ -225,7 +225,7 @@ const questions = [
 
 let currentQuestion = 0;
 let survivalScore = 0;
-
+let moralityScore = 0;
 
 // ===============================
 // ELEMENTS
@@ -266,6 +266,7 @@ function startQuiz() {
 
     currentQuestion = 0;
     survivalScore = 0;
+    moralityScore = 0;
 
     startScreen.classList.add("hidden");
     resultScreen.classList.add("hidden");
@@ -306,8 +307,8 @@ function showQuestion() {
         button.textContent = answer[0];
 
         button.addEventListener("click", () => {
-            selectAnswer(answer[1]);
-        });
+    selectAnswer(answer[1], answer[2]);
+});
 
         answersContainer.appendChild(button);
 
@@ -319,9 +320,13 @@ function showQuestion() {
 // SELECT ANSWER
 // ===============================
 
-function selectAnswer(points) {
+function selectAnswer(survivalPoints, moralityPoints) {
 
-    survivalScore += points;
+    survivalScore += survivalPoints;
+
+    if (moralityPoints !== null && moralityPoints !== undefined) {
+        moralityScore += moralityPoints;
+    }
 
     currentQuestion++;
 
@@ -353,12 +358,11 @@ function showResult() {
     // Current temporary quiz:
     // 20 questions × maximum 5 points = 100
 
-    const maximumScore =
-        questions.length * 5;
-
     const survivalPercentage =
-        Math.round((survivalScore / maximumScore) * 100);
+    Math.round((survivalScore / 450) * 100);
 
+const moralityPercentage =
+    Math.round((moralityScore / 1580) * 100);
 
     document.getElementById("final-score").textContent =
         survivalPercentage;
@@ -444,10 +448,29 @@ function showResult() {
     // until the finalized morality data is added.
 
     document.getElementById("morality-score").textContent =
-        "—";
+    moralityPercentage;
 
-    document.getElementById("morality-description").textContent =
-        "Morality scoring will be activated when the finalized 90-decision question set is added.";
+let moralityDescription;
+
+if (moralityPercentage <= 20) {
+    moralityDescription =
+        "You put survival above almost everything else.";
+} else if (moralityPercentage <= 40) {
+    moralityDescription =
+        "You are willing to make some hard choices when survival is at stake.";
+} else if (moralityPercentage <= 60) {
+    moralityDescription =
+        "You try to balance survival with the needs of other people.";
+} else if (moralityPercentage <= 80) {
+    moralityDescription =
+        "You strongly value people and fairness, even during the apocalypse.";
+} else {
+    moralityDescription =
+        "You place an exceptionally high value on human life, fairness and protecting others.";
+}
+
+document.getElementById("morality-description").textContent =
+    moralityDescription;
 
 
     progressBar.style.width = "100%";
