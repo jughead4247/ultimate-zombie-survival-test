@@ -123,6 +123,19 @@ body::before {
 
     filter: grayscale(20%);
 }
+.start-image {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 25px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.start-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 .eyebrow {
     margin: 0 0 12px;
