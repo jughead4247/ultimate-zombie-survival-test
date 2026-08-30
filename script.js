@@ -1,5 +1,3 @@
-const homeInfo = document.getElementById("home-info");
-
 const questions = [
 
     {
@@ -912,6 +910,11 @@ let currentQuestion = 0;
 let survivalScore = 0;
 let moralityScore = 0;
 
+// Store selected answer for every question.
+// -1 = unanswered
+let selectedAnswers = new Array(questions.length).fill(-1);
+
+
 // ===============================
 // ELEMENTS
 // ===============================
@@ -919,11 +922,16 @@ let moralityScore = 0;
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
 const resultScreen = document.getElementById("result-screen");
+const homeInfo = document.getElementById("home-info");
 
 const startButton = document.getElementById("start-btn");
 const restartButton = document.getElementById("restart-btn");
 const shareButton = document.getElementById("share-btn");
 const challengeButton = document.getElementById("challenge-btn");
+
+const backButton = document.getElementById("back-btn");
+const nextButton = document.getElementById("next-btn");
+const submitButton = document.getElementById("submit-btn");
 
 const questionNumber = document.getElementById("question-number");
 const questionText = document.getElementById("question");
@@ -932,13 +940,17 @@ const progressBar = document.getElementById("progress-bar");
 
 
 // ===============================
-// BUTTON EVENTS
+// EVENTS
 // ===============================
 
 startButton.addEventListener("click", startQuiz);
 restartButton.addEventListener("click", restartQuiz);
 shareButton.addEventListener("click", shareResult);
 challengeButton.addEventListener("click", shareResult);
+
+backButton.addEventListener("click", previousQuestion);
+nextButton.addEventListener("click", nextQuestion);
+submitButton.addEventListener("click", submitQuiz);
 
 
 // ===============================
@@ -953,9 +965,10 @@ function startQuiz() {
     survivalScore = 0;
     moralityScore = 0;
 
+    selectedAnswers = new Array(questions.length).fill(-1);
+
     startScreen.classList.add("hidden");
     resultScreen.classList.add("hidden");
-
     quizScreen.classList.remove("hidden");
 
     showQuestion();
@@ -977,13 +990,22 @@ function showQuestion() {
 
     answersContainer.innerHTML = "";
 
+
+    // ===============================
+    // PROGRESS
+    // ===============================
+
     const progress =
         ((currentQuestion + 1) / questions.length) * 100;
 
     progressBar.style.width = `${progress}%`;
 
 
-    current.answers.forEach((answer) => {
+    // ===============================
+    // ANSWERS
+    // ===============================
+
+    current.answers.forEach((answer, index) => {
 
         const button = document.createElement("button");
 
@@ -991,13 +1013,60 @@ function showQuestion() {
 
         button.textContent = answer[0];
 
+
+        // Restore previous selection
+        if (selectedAnswers[currentQuestion] === index) {
+            button.classList.add("selected");
+        }
+
+
         button.addEventListener("click", () => {
-    selectAnswer(answer[1], answer[2]);
-});
+            selectAnswer(index);
+        });
+
 
         answersContainer.appendChild(button);
 
     });
+
+
+    // ===============================
+    // BACK BUTTON
+    // ===============================
+
+    if (currentQuestion === 0) {
+
+        backButton.classList.add("hidden");
+
+    } else {
+
+        backButton.classList.remove("hidden");
+
+    }
+
+
+    // ===============================
+    // NEXT / SUBMIT
+    // ===============================
+
+    if (currentQuestion === questions.length - 1) {
+
+        nextButton.classList.add("hidden");
+
+        submitButton.classList.remove("hidden");
+
+        updateSubmitButton();
+
+    } else {
+
+        nextButton.classList.remove("hidden");
+
+        submitButton.classList.add("hidden");
+
+        nextButton.disabled = false;
+
+    }
+
 }
 
 
@@ -1005,25 +1074,185 @@ function showQuestion() {
 // SELECT ANSWER
 // ===============================
 
-function selectAnswer(survivalPoints, moralityPoints) {
+function selectAnswer(answerIndex) {
 
-    survivalScore += survivalPoints;
+    selectedAnswers[currentQuestion] = answerIndex;
 
-    if (moralityPoints !== null && moralityPoints !== undefined) {
-        moralityScore += moralityPoints;
-    }
 
-    currentQuestion++;
+    // Highlight selected answer
 
-    if (currentQuestion < questions.length) {
+    const answerButtons =
+        answersContainer.querySelectorAll(".answer");
 
-        showQuestion();
+    answerButtons.forEach((button, index) => {
+
+        button.classList.toggle(
+            "selected",
+            index === answerIndex
+        );
+
+    });
+
+
+    // ===============================
+    // AUTOMATICALLY MOVE FORWARD
+    // ===============================
+
+    if (currentQuestion < questions.length - 1) {
+
+        setTimeout(() => {
+
+            // Make sure the user is still
+            // on the same question before moving.
+            //
+            // This prevents an old timeout
+            // from unexpectedly moving the user
+            // after they pressed BACK.
+
+            if (
+                selectedAnswers[currentQuestion] === answerIndex
+            ) {
+
+                currentQuestion++;
+
+                showQuestion();
+
+            }
+
+        }, 180);
 
     } else {
 
-        showResult();
+        updateSubmitButton();
 
     }
+
+}
+
+
+// ===============================
+// NEXT QUESTION
+// ===============================
+
+function nextQuestion() {
+
+    if (currentQuestion < questions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    }
+
+}
+
+
+// ===============================
+// PREVIOUS QUESTION
+// ===============================
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+
+// ===============================
+// CHECK ALL ANSWERS
+// ===============================
+
+function allQuestionsAnswered() {
+
+    return selectedAnswers.every(
+        answer => answer !== -1
+    );
+
+}
+
+
+// ===============================
+// SUBMIT BUTTON
+// ===============================
+
+function updateSubmitButton() {
+
+    if (allQuestionsAnswered()) {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent = "SUBMIT";
+
+    } else {
+
+        submitButton.disabled = true;
+
+        submitButton.textContent = "ANSWER ALL QUESTIONS";
+
+    }
+
+}
+
+
+// ===============================
+// SUBMIT QUIZ
+// ===============================
+
+function submitQuiz() {
+
+    // Absolute protection against
+    // submitting an incomplete quiz.
+
+    if (!allQuestionsAnswered()) {
+
+        return;
+
+    }
+
+
+    // ===============================
+    // CALCULATE SCORES
+    // ===============================
+
+    survivalScore = 0;
+    moralityScore = 0;
+
+
+    selectedAnswers.forEach(
+        (answerIndex, questionIndex) => {
+
+            const answer =
+                questions[questionIndex].answers[answerIndex];
+
+
+            // Survival points
+
+            survivalScore += answer[1];
+
+
+            // Morality points
+
+            if (
+                answer[2] !== null &&
+                answer[2] !== undefined
+            ) {
+
+                moralityScore += answer[2];
+
+            }
+
+        }
+    );
+
+
+    showResult();
+
 }
 
 
@@ -1036,19 +1265,24 @@ function showResult() {
     homeInfo.classList.remove("hidden");
 
     quizScreen.classList.add("hidden");
-
     resultScreen.classList.remove("hidden");
 
 
-// ===============================
-// FINAL SCORES
-// ===============================
+    // ===============================
+    // SURVIVAL SCORE
+    // ===============================
 
-const survivalPercentage =
-    Math.round((survivalScore / 450) * 100);
+    const survivalPercentage =
+        Math.round((survivalScore / 450) * 100);
 
-const moralityPercentage =
-    Math.round((moralityScore / 394) * 100);
+
+    // ===============================
+    // MORALITY SCORE
+    // ===============================
+
+    const moralityPercentage =
+        Math.round((moralityScore / 394) * 100);
+
 
     document.getElementById("final-score").textContent =
         survivalPercentage;
@@ -1059,6 +1293,10 @@ const moralityPercentage =
     let survival;
     let icon;
 
+
+    // ===============================
+    // SURVIVAL RESULT
+    // ===============================
 
     if (survivalPercentage <= 20) {
 
@@ -1071,6 +1309,7 @@ const moralityPercentage =
 
         icon = "☠️";
 
+
     } else if (survivalPercentage <= 45) {
 
         title = "Short-Term Survivor";
@@ -1081,6 +1320,7 @@ const moralityPercentage =
         survival = "Several days to a few weeks";
 
         icon = "🧟";
+
 
     } else if (survivalPercentage <= 70) {
 
@@ -1093,6 +1333,7 @@ const moralityPercentage =
 
         icon = "🏃";
 
+
     } else if (survivalPercentage <= 90) {
 
         title = "Apocalypse Survivor";
@@ -1104,6 +1345,7 @@ const moralityPercentage =
 
         icon = "🔥";
 
+
     } else {
 
         title = "The Last Human Alive";
@@ -1114,6 +1356,7 @@ const moralityPercentage =
         survival = "5+ years";
 
         icon = "👑";
+
     }
 
 
@@ -1130,59 +1373,66 @@ const moralityPercentage =
         icon;
 
 
-   // ===============================
-// MORALITY RESULT
-// ===============================
+    // ===============================
+    // MORALITY RESULT
+    // ===============================
 
-document.getElementById("morality-score").textContent =
-    moralityPercentage + "%";
-
-let moralityTitle;
-let moralityDescription;
+    document.getElementById("morality-score").textContent =
+        moralityPercentage + "%";
 
 
-if (moralityPercentage <= 20) {
-
-    moralityTitle = "Ruthless Survivor";
-
-    moralityDescription =
-        "You put survival above almost everything else. In the apocalypse, you are willing to make difficult choices without letting emotions get in the way.";
-
-} else if (moralityPercentage <= 40) {
-
-    moralityTitle = "Pragmatic Survivor";
-
-    moralityDescription =
-        "You care about others, but survival comes first when resources and safety are limited.";
-
-} else if (moralityPercentage <= 60) {
-
-    moralityTitle = "Balanced Survivor";
-
-    moralityDescription =
-        "You try to balance survival with compassion. You understand that protecting your group sometimes requires difficult choices.";
-
-} else if (moralityPercentage <= 80) {
-
-    moralityTitle = "Compassionate Survivor";
-
-    moralityDescription =
-        "You place considerable value on helping others while still understanding the realities of survival.";
-
-} else {
-
-    moralityTitle = "Humanitarian";
-
-    moralityDescription =
-        "Even during the apocalypse, you strongly believe that protecting human life and helping others should remain a priority.";
-}
+    let moralityTitle;
+    let moralityDescription;
 
 
-document.getElementById("morality-description").textContent =
-    moralityTitle + " — " + moralityDescription;
+    if (moralityPercentage <= 20) {
+
+        moralityTitle = "Ruthless Survivor";
+
+        moralityDescription =
+            "You put survival above almost everything else. In the apocalypse, you are willing to make difficult choices without letting emotions get in the way.";
+
+
+    } else if (moralityPercentage <= 40) {
+
+        moralityTitle = "Pragmatic Survivor";
+
+        moralityDescription =
+            "You care about others, but survival comes first when resources and safety are limited.";
+
+
+    } else if (moralityPercentage <= 60) {
+
+        moralityTitle = "Balanced Survivor";
+
+        moralityDescription =
+            "You try to balance survival with compassion. You understand that protecting your group sometimes requires difficult choices.";
+
+
+    } else if (moralityPercentage <= 80) {
+
+        moralityTitle = "Compassionate Survivor";
+
+        moralityDescription =
+            "You place considerable value on helping others while still understanding the realities of survival.";
+
+
+    } else {
+
+        moralityTitle = "Humanitarian";
+
+        moralityDescription =
+            "Even during the apocalypse, you strongly believe that protecting human life and helping others should remain a priority.";
+
+    }
+
+
+    document.getElementById("morality-description").textContent =
+        moralityTitle + " — " + moralityDescription;
 
 
     progressBar.style.width = "100%";
+
 }
 
 
@@ -1192,6 +1442,16 @@ document.getElementById("morality-description").textContent =
 
 function restartQuiz() {
 
+    currentQuestion = 0;
+
+    survivalScore = 0;
+
+    moralityScore = 0;
+
+    selectedAnswers =
+        new Array(questions.length).fill(-1);
+
+
     resultScreen.classList.add("hidden");
 
     startScreen.classList.remove("hidden");
@@ -1199,6 +1459,12 @@ function restartQuiz() {
     homeInfo.classList.remove("hidden");
 
     progressBar.style.width = "0%";
+
+
+    submitButton.disabled = true;
+
+    submitButton.textContent = "SUBMIT";
+
 }
 
 
@@ -1234,7 +1500,8 @@ async function shareResult() {
             shareText,
 
         url:
-            "https://jughead4247.github.io/zombie-quiz/"
+            "https://apocalypsequizzes.com/ultimate-zombie-survival-test/"
+
     };
 
 
@@ -1248,7 +1515,7 @@ async function shareResult() {
 
             await navigator.clipboard.writeText(
                 shareText +
-                "\n\nhttps://jughead4247.github.io/zombie-quiz/"
+                "\n\nhttps://apocalypsequizzes.com/ultimate-zombie-survival-test/"
             );
 
             alert(
@@ -1262,4 +1529,5 @@ async function shareResult() {
         console.log("Sharing cancelled.");
 
     }
+
 }
