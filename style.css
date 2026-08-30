@@ -145,35 +145,20 @@ body::before {
    START IMAGE
 ================================ */
 
+/* START IMAGE */
+
 .quiz-start-image {
     display: block;
 
     width: 100%;
     max-width: 100%;
-
-    /*
-       Prevents a very tall source image from
-       making the card enormous.
-    */
-    height: 300px;
-    max-height: 300px;
+    height: auto;
 
     margin: 0 auto 25px;
 
-    /*
-       Keeps the image visually contained.
-    */
-    object-fit: cover;
-
-    object-position: center;
-
     border-radius: 12px;
 
-    /*
-       Prevents intrinsic image dimensions
-       from affecting the card width.
-    */
-    min-width: 0;
+    object-fit: contain;
 }
 
 
