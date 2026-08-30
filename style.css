@@ -124,8 +124,10 @@ body::before {
     display: block;
 
     width: 100%;
-    max-width: 670px;
-    height: auto;
+    max-width: 620px;
+    height: 260px;
+
+    object-fit: cover;
 
     margin: 0 auto 25px;
 
@@ -832,7 +834,11 @@ h2 {
 
         padding: 10px;
     }
+.quiz-start-image {
+    height: 180px;
 
+    border-radius: 10px;
+}
 
     .screen {
 
