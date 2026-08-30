@@ -1,4 +1,4 @@
-* {
+*{
     box-sizing: border-box;
 }
 
@@ -61,6 +61,8 @@ body::before {
 }
 
 .screen {
+    width: 100%;
+
     background: rgba(12, 12, 12, 0.96);
 
     border: 1px solid #3a3a3a;
@@ -95,13 +97,15 @@ body::before {
 }
 
 
-/* ===============================
-   START CARD
-================================ */
+/* START CARD */
+
+#start-screen {
+    width: 100%;
+}
 
 .intro-card {
     width: 100%;
-    max-width: 100%;
+    max-width: 760px;
 
     background: rgba(12, 12, 12, 0.96);
 
@@ -117,53 +121,33 @@ body::before {
 
     animation: appear 0.4s ease;
 
-    /* Keep every child inside the card */
+    /* Keeps every child visually inside the card */
     overflow: hidden;
 }
 
 
-/* ===============================
-   START IMAGE
-================================ */
+/* START IMAGE */
 
-/*
-   IMPORTANT:
-   The image is deliberately constrained.
-   It can never become wider than the card
-   and cannot escape vertically either.
-*/
-
-.intro-card .quiz-start-image {
+.quiz-start-image {
     display: block;
 
-    width: 100% !important;
+    width: 100%;
+    max-width: 100%;
 
-    max-width: 100% !important;
-
-    height: 260px !important;
-
-    min-width: 0 !important;
-    min-height: 0 !important;
+    height: auto;
 
     margin: 0 auto 25px;
 
     border-radius: 12px;
 
-    object-fit: cover;
-
-    object-position: center;
-
-    overflow: hidden;
+    /* Prevents oversized source images from escaping */
+    object-fit: contain;
 }
 
 
-/* ===============================
-   START SCREEN
-================================ */
+/* START SCREEN */
 
 #start-screen {
-    width: 100%;
-
     text-align: center;
 }
 
@@ -216,9 +200,7 @@ h1 {
 }
 
 
-/* ===============================
-   GENERAL BUTTON
-================================ */
+/* GENERAL BUTTON */
 
 button {
     border: none;
@@ -243,9 +225,7 @@ button {
 }
 
 
-/* ===============================
-   START / RESULT BUTTONS
-================================ */
+/* START / RESULT BUTTONS */
 
 #start-btn,
 #restart-btn,
@@ -301,9 +281,7 @@ button {
 }
 
 
-/* ===============================
-   QUIZ
-================================ */
+/* QUIZ */
 
 .quiz-header {
 
@@ -359,9 +337,7 @@ h2 {
 }
 
 
-/* ===============================
-   ANSWERS
-================================ */
+/* ANSWERS */
 
 .answer {
 
@@ -397,9 +373,7 @@ h2 {
 }
 
 
-/* ===============================
-   SELECTED ANSWER
-================================ */
+/* SELECTED ANSWER */
 
 .answer.selected {
 
@@ -412,9 +386,7 @@ h2 {
 }
 
 
-/* ===============================
-   QUESTION NAVIGATION
-================================ */
+/* QUESTION NAVIGATION */
 
 .quiz-navigation {
 
@@ -430,9 +402,7 @@ h2 {
 }
 
 
-/* ===============================
-   SMALL NAVIGATION BUTTONS
-================================ */
+/* SMALL NAVIGATION BUTTONS */
 
 .nav-btn {
 
@@ -468,17 +438,15 @@ h2 {
 }
 
 
-/* ===============================
-   BACK BUTTON — LEFT
-================================ */
+/* BACK BUTTON */
 
 #back-btn {
-
-    margin-right: auto;
 
     background: #171717;
 
     color: #aaa;
+
+    margin-right: auto;
 }
 
 
@@ -490,19 +458,17 @@ h2 {
 }
 
 
-/* ===============================
-   NEXT BUTTON — RIGHT
-================================ */
+/* NEXT BUTTON */
 
 #next-btn {
-
-    margin-left: auto;
 
     background: #b51f1f;
 
     border-color: #b51f1f;
 
     color: white;
+
+    margin-left: auto;
 }
 
 
@@ -514,19 +480,17 @@ h2 {
 }
 
 
-/* ===============================
-   SUBMIT BUTTON — RIGHT
-================================ */
+/* SUBMIT BUTTON */
 
 #submit-btn {
-
-    margin-left: auto;
 
     background: #b51f1f;
 
     border-color: #b51f1f;
 
     color: white;
+
+    margin-left: auto;
 }
 
 
@@ -538,9 +502,7 @@ h2 {
 }
 
 
-/* ===============================
-   DISABLED SUBMIT
-================================ */
+/* DISABLED SUBMIT */
 
 #submit-btn:disabled {
 
@@ -558,9 +520,7 @@ h2 {
 }
 
 
-/* ===============================
-   RESULTS
-================================ */
+/* RESULTS */
 
 .result-label {
 
@@ -610,10 +570,6 @@ h2 {
 }
 
 
-/* ===============================
-   SURVIVAL BOX
-================================ */
-
 .survival-box {
 
     margin: 30px 0;
@@ -654,9 +610,7 @@ h2 {
 }
 
 
-/* ===============================
-   INFORMATION PAGES
-================================ */
+/* INFORMATION PAGES */
 
 .info-page {
 
@@ -706,9 +660,7 @@ h2 {
 }
 
 
-/* ===============================
-   FOOTER
-================================ */
+/* FOOTER */
 
 .site-footer {
 
@@ -768,9 +720,7 @@ h2 {
 }
 
 
-/* ===============================
-   HOMEPAGE INFORMATION
-================================ */
+/* HOMEPAGE INFORMATION */
 
 .home-info {
 
@@ -822,9 +772,7 @@ h2 {
 }
 
 
-/* ===============================
-   MOBILE
-================================ */
+/* MOBILE */
 
 @media (max-width: 600px) {
 
@@ -846,8 +794,6 @@ h2 {
 
         width: 100%;
 
-        max-width: 100%;
-
         padding: 30px 20px;
 
         border-radius: 14px;
@@ -856,33 +802,19 @@ h2 {
     }
 
 
-    /*
-       Smaller image on mobile.
-       It remains completely inside
-       the intro card.
-    */
+    .quiz-start-image {
 
-    .intro-card .quiz-start-image {
+        width: 100%;
 
-        width: 100% !important;
+        max-width: 100%;
 
-        max-width: 100% !important;
+        height: auto;
 
-        height: 190px !important;
+        margin-left: auto;
 
-        min-width: 0 !important;
-
-        min-height: 0 !important;
-
-        margin-left: 0;
-
-        margin-right: 0;
+        margin-right: auto;
 
         border-radius: 10px;
-
-        object-fit: cover;
-
-        object-position: center;
     }
 
 
@@ -926,11 +858,7 @@ h2 {
 
         margin-top: 22px;
 
-        display: flex;
-
-        justify-content: space-between;
-
-        align-items: center;
+        width: 100%;
     }
 
 
@@ -941,19 +869,6 @@ h2 {
         padding: 10px 13px;
 
         font-size: 12px;
-    }
-
-
-    #back-btn {
-
-        margin-right: auto;
-    }
-
-
-    #next-btn,
-    #submit-btn {
-
-        margin-left: auto;
     }
 
 
