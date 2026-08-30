@@ -95,13 +95,9 @@ body::before {
 }
 
 
-/* ===============================
-   START CARD
-================================ */
+/* START CARD */
 
 .intro-card {
-    width: 100%;
-
     background: rgba(12, 12, 12, 0.96);
 
     border: 1px solid #3a3a3a;
@@ -115,34 +111,22 @@ body::before {
         0 0 0 1px rgba(255,255,255,0.02);
 
     animation: appear 0.4s ease;
-
-    /* Prevent the image from visually escaping the card */
-    overflow: hidden;
 }
 
 
-/* ===============================
-   START IMAGE
-================================ */
+/* START IMAGE */
 
 .quiz-start-image {
     display: block;
 
-    /* Stay inside the intro-card content area */
     width: 100%;
-    max-width: 100%;
+    max-width: 670px;
     height: auto;
-
-    /* Prevent intrinsic image dimensions from causing overflow */
-    min-width: 0;
 
     margin: 0 auto 25px;
 
     border-radius: 12px;
-
-    object-fit: contain;
 }
-
 
 /* ===============================
    START SCREEN
