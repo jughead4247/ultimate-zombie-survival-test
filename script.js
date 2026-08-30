@@ -1119,7 +1119,7 @@ function selectAnswer(answerIndex) {
 
             }
 
-        }, 180);
+        }, 150);
 
     } else {
 
