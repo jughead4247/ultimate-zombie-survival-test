@@ -97,11 +97,22 @@ body::before {
 }
 
 
-/* START CARD */
+/* ===============================
+   START SCREEN
+================================ */
 
 #start-screen {
     width: 100%;
+
+    text-align: center;
+
+    overflow: hidden;
 }
+
+
+/* ===============================
+   START CARD
+================================ */
 
 .intro-card {
     width: 100%;
@@ -121,12 +132,18 @@ body::before {
 
     animation: appear 0.4s ease;
 
-    /* Keeps every child visually inside the card */
+    /*
+       Important:
+       Prevents the image or any other child
+       from visually extending outside the card.
+    */
     overflow: hidden;
 }
 
 
-/* START IMAGE */
+/* ===============================
+   START IMAGE
+================================ */
 
 .quiz-start-image {
     display: block;
@@ -134,22 +151,35 @@ body::before {
     width: 100%;
     max-width: 100%;
 
-    height: auto;
+    /*
+       Prevents a very tall source image from
+       making the card enormous.
+    */
+    height: 300px;
+    max-height: 300px;
 
     margin: 0 auto 25px;
 
+    /*
+       Keeps the image visually contained.
+    */
+    object-fit: cover;
+
+    object-position: center;
+
     border-radius: 12px;
 
-    /* Prevents oversized source images from escaping */
-    object-fit: contain;
+    /*
+       Prevents intrinsic image dimensions
+       from affecting the card width.
+    */
+    min-width: 0;
 }
 
 
-/* START SCREEN */
-
-#start-screen {
-    text-align: center;
-}
+/* ===============================
+   START ICON
+================================ */
 
 .icon {
     font-size: 80px;
@@ -158,6 +188,19 @@ body::before {
 
     filter: grayscale(20%);
 }
+
+.intro-icon {
+    font-size: 80px;
+
+    margin-bottom: 10px;
+
+    filter: grayscale(20%);
+}
+
+
+/* ===============================
+   HEADINGS
+================================ */
 
 h1 {
     font-size: clamp(32px, 7vw, 52px);
@@ -200,7 +243,9 @@ h1 {
 }
 
 
-/* GENERAL BUTTON */
+/* ===============================
+   GENERAL BUTTON
+================================ */
 
 button {
     border: none;
@@ -225,7 +270,9 @@ button {
 }
 
 
-/* START / RESULT BUTTONS */
+/* ===============================
+   START / RESULT BUTTONS
+================================ */
 
 #start-btn,
 #restart-btn,
@@ -241,7 +288,6 @@ button {
     color: white;
 }
 
-
 #start-btn:hover,
 #restart-btn:hover,
 #share-btn:hover,
@@ -252,7 +298,6 @@ button {
     transform: translateY(-2px);
 }
 
-
 #challenge-btn {
 
     background: #3a3a3a;
@@ -260,12 +305,10 @@ button {
     border: 1px solid #555;
 }
 
-
 #challenge-btn:hover {
 
     background: #4a4a4a;
 }
-
 
 #share-btn {
 
@@ -274,14 +317,15 @@ button {
     border: 1px solid #444;
 }
 
-
 #share-btn:hover {
 
     background: #303030;
 }
 
 
-/* QUIZ */
+/* ===============================
+   QUIZ
+================================ */
 
 .quiz-header {
 
@@ -300,7 +344,6 @@ button {
     letter-spacing: 1px;
 }
 
-
 .progress {
 
     height: 6px;
@@ -314,7 +357,6 @@ button {
     overflow: hidden;
 }
 
-
 #progress-bar {
 
     height: 100%;
@@ -326,7 +368,6 @@ button {
     transition: width 0.3s ease;
 }
 
-
 h2 {
 
     font-size: clamp(22px, 5vw, 31px);
@@ -337,7 +378,9 @@ h2 {
 }
 
 
-/* ANSWERS */
+/* ===============================
+   ANSWERS
+================================ */
 
 .answer {
 
@@ -362,7 +405,6 @@ h2 {
     line-height: 1.45;
 }
 
-
 .answer:hover {
 
     background: #242424;
@@ -373,7 +415,9 @@ h2 {
 }
 
 
-/* SELECTED ANSWER */
+/* ===============================
+   SELECTED ANSWER
+================================ */
 
 .answer.selected {
 
@@ -386,7 +430,9 @@ h2 {
 }
 
 
-/* QUESTION NAVIGATION */
+/* ===============================
+   QUESTION NAVIGATION
+================================ */
 
 .quiz-navigation {
 
@@ -402,7 +448,9 @@ h2 {
 }
 
 
-/* SMALL NAVIGATION BUTTONS */
+/* ===============================
+   SMALL NAVIGATION BUTTONS
+================================ */
 
 .nav-btn {
 
@@ -427,7 +475,6 @@ h2 {
     letter-spacing: 0.4px;
 }
 
-
 .nav-btn:hover:not(:disabled) {
 
     background: #303030;
@@ -438,7 +485,9 @@ h2 {
 }
 
 
-/* BACK BUTTON */
+/* ===============================
+   BACK BUTTON — LEFT
+================================ */
 
 #back-btn {
 
@@ -449,7 +498,6 @@ h2 {
     margin-right: auto;
 }
 
-
 #back-btn:hover:not(:disabled) {
 
     background: #242424;
@@ -458,7 +506,9 @@ h2 {
 }
 
 
-/* NEXT BUTTON */
+/* ===============================
+   NEXT BUTTON — RIGHT
+================================ */
 
 #next-btn {
 
@@ -471,7 +521,6 @@ h2 {
     margin-left: auto;
 }
 
-
 #next-btn:hover:not(:disabled) {
 
     background: #d32929;
@@ -480,7 +529,9 @@ h2 {
 }
 
 
-/* SUBMIT BUTTON */
+/* ===============================
+   SUBMIT BUTTON — RIGHT
+================================ */
 
 #submit-btn {
 
@@ -493,7 +544,6 @@ h2 {
     margin-left: auto;
 }
 
-
 #submit-btn:hover:not(:disabled) {
 
     background: #d32929;
@@ -502,7 +552,9 @@ h2 {
 }
 
 
-/* DISABLED SUBMIT */
+/* ===============================
+   DISABLED SUBMIT
+================================ */
 
 #submit-btn:disabled {
 
@@ -520,7 +572,9 @@ h2 {
 }
 
 
-/* RESULTS */
+/* ===============================
+   RESULTS
+================================ */
 
 .result-label {
 
@@ -533,14 +587,12 @@ h2 {
     letter-spacing: 3px;
 }
 
-
 #result-title {
 
     margin-top: 10px;
 
     font-size: clamp(30px, 7vw, 46px);
 }
-
 
 .result-score {
 
@@ -552,7 +604,6 @@ h2 {
 
     font-weight: 800;
 }
-
 
 #result-description {
 
@@ -569,7 +620,6 @@ h2 {
     text-align: center;
 }
 
-
 .survival-box {
 
     margin: 30px 0;
@@ -584,7 +634,6 @@ h2 {
 
     text-align: center;
 }
-
 
 .survival-box strong {
 
@@ -601,7 +650,6 @@ h2 {
     font-size: 12px;
 }
 
-
 .survival-box span {
 
     font-size: 25px;
@@ -610,7 +658,9 @@ h2 {
 }
 
 
-/* INFORMATION PAGES */
+/* ===============================
+   INFORMATION PAGES
+================================ */
 
 .info-page {
 
@@ -619,12 +669,10 @@ h2 {
     margin: 40px auto;
 }
 
-
 .info-page h1 {
 
     text-align: center;
 }
-
 
 .info-page h2 {
 
@@ -635,7 +683,6 @@ h2 {
     font-size: 24px;
 }
 
-
 .info-page p {
 
     color: #bbb;
@@ -645,7 +692,6 @@ h2 {
     line-height: 1.7;
 }
 
-
 .info-page a {
 
     color: #d32929;
@@ -653,14 +699,15 @@ h2 {
     text-decoration: none;
 }
 
-
 .info-page a:hover {
 
     text-decoration: underline;
 }
 
 
-/* FOOTER */
+/* ===============================
+   FOOTER
+================================ */
 
 .site-footer {
 
@@ -679,7 +726,6 @@ h2 {
     z-index: 1;
 }
 
-
 .footer-links {
 
     display: flex;
@@ -691,7 +737,6 @@ h2 {
     gap: 18px;
 }
 
-
 .site-footer a {
 
     color: #777;
@@ -699,14 +744,12 @@ h2 {
     text-decoration: none;
 }
 
-
 .site-footer a:hover {
 
     color: #ccc;
 
     text-decoration: underline;
 }
-
 
 .copyright {
 
@@ -720,7 +763,9 @@ h2 {
 }
 
 
-/* HOMEPAGE INFORMATION */
+/* ===============================
+   HOMEPAGE INFORMATION
+================================ */
 
 .home-info {
 
@@ -735,14 +780,12 @@ h2 {
     border-radius: 18px;
 }
 
-
 .home-info h2 {
 
     margin-top: 0;
 
     font-size: 26px;
 }
-
 
 .home-info p {
 
@@ -752,7 +795,6 @@ h2 {
 
     line-height: 1.7;
 }
-
 
 .home-info h3 {
 
@@ -765,14 +807,15 @@ h2 {
     color: #ddd;
 }
 
-
 .home-info h3:first-of-type {
 
     margin-top: 20px;
 }
 
 
-/* MOBILE */
+/* ===============================
+   MOBILE
+================================ */
 
 @media (max-width: 600px) {
 
@@ -802,23 +845,39 @@ h2 {
     }
 
 
+    /*
+       Smaller contained image on phones.
+    */
+
     .quiz-start-image {
 
         width: 100%;
 
         max-width: 100%;
 
-        height: auto;
+        height: 200px;
+
+        max-height: 200px;
 
         margin-left: auto;
 
         margin-right: auto;
 
         border-radius: 10px;
+
+        object-fit: cover;
+
+        object-position: center;
     }
 
 
     .icon {
+
+        font-size: 60px;
+    }
+
+
+    .intro-icon {
 
         font-size: 60px;
     }
