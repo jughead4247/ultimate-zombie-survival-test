@@ -95,9 +95,14 @@ body::before {
 }
 
 
-/* START CARD */
+/* ===============================
+   START CARD
+================================ */
 
 .intro-card {
+    width: 100%;
+    max-width: 100%;
+
     background: rgba(12, 12, 12, 0.96);
 
     border: 1px solid #3a3a3a;
@@ -111,22 +116,46 @@ body::before {
         0 0 0 1px rgba(255,255,255,0.02);
 
     animation: appear 0.4s ease;
+
+    /* Keep every child inside the card */
+    overflow: hidden;
 }
 
 
-/* START IMAGE */
+/* ===============================
+   START IMAGE
+================================ */
 
-.quiz-start-image {
+/*
+   IMPORTANT:
+   The image is deliberately constrained.
+   It can never become wider than the card
+   and cannot escape vertically either.
+*/
+
+.intro-card .quiz-start-image {
     display: block;
 
-    width: 100%;
-    max-width: 670px;
-    height: auto;
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    height: 260px !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
 
     margin: 0 auto 25px;
 
     border-radius: 12px;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    overflow: hidden;
 }
+
 
 /* ===============================
    START SCREEN
@@ -398,11 +427,6 @@ h2 {
     width: 100%;
 
     margin-top: 28px;
-
-    /* Creates two fixed sides:
-       Back = left
-       Next/Submit = right */
-    position: relative;
 }
 
 
@@ -445,12 +469,10 @@ h2 {
 
 
 /* ===============================
-   BACK BUTTON
+   BACK BUTTON — LEFT
 ================================ */
 
 #back-btn {
-
-    order: 1;
 
     margin-right: auto;
 
@@ -469,12 +491,10 @@ h2 {
 
 
 /* ===============================
-   NEXT BUTTON
+   NEXT BUTTON — RIGHT
 ================================ */
 
 #next-btn {
-
-    order: 2;
 
     margin-left: auto;
 
@@ -495,12 +515,10 @@ h2 {
 
 
 /* ===============================
-   SUBMIT BUTTON
+   SUBMIT BUTTON — RIGHT
 ================================ */
 
 #submit-btn {
-
-    order: 2;
 
     margin-left: auto;
 
@@ -826,28 +844,45 @@ h2 {
 
     .intro-card {
 
-        padding: 30px 20px;
-
-        border-radius: 14px;
-
-        /* Extra protection on small screens */
-        overflow: hidden;
-    }
-
-
-    .quiz-start-image {
-
         width: 100%;
 
         max-width: 100%;
 
-        height: auto;
+        padding: 30px 20px;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+    }
+
+
+    /*
+       Smaller image on mobile.
+       It remains completely inside
+       the intro card.
+    */
+
+    .intro-card .quiz-start-image {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        height: 190px !important;
+
+        min-width: 0 !important;
+
+        min-height: 0 !important;
 
         margin-left: 0;
 
         margin-right: 0;
 
         border-radius: 10px;
+
+        object-fit: cover;
+
+        object-position: center;
     }
 
 
@@ -894,6 +929,8 @@ h2 {
         display: flex;
 
         justify-content: space-between;
+
+        align-items: center;
     }
 
 
