@@ -102,69 +102,8 @@ body::before {
 ================================ */
 
 #start-screen {
-    width: 100%;
-
     text-align: center;
-
-    overflow: hidden;
 }
-
-
-/* ===============================
-   START CARD
-================================ */
-
-.intro-card {
-    width: 100%;
-    max-width: 760px;
-
-    background: rgba(12, 12, 12, 0.96);
-
-    border: 1px solid #3a3a3a;
-
-    border-radius: 18px;
-
-    padding: 45px;
-
-    box-shadow:
-        0 25px 80px rgba(0, 0, 0, 0.8),
-        0 0 0 1px rgba(255,255,255,0.02);
-
-    animation: appear 0.4s ease;
-
-    /*
-       Important:
-       Prevents the image or any other child
-       from visually extending outside the card.
-    */
-    overflow: hidden;
-}
-
-
-/* ===============================
-   START IMAGE
-================================ */
-
-/* START IMAGE */
-
-.quiz-start-image {
-    display: block;
-
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-
-    margin: 0 auto 25px;
-
-    border-radius: 12px;
-
-    object-fit: contain;
-}
-
-
-/* ===============================
-   START ICON
-================================ */
 
 .icon {
     font-size: 80px;
@@ -173,13 +112,32 @@ body::before {
 
     filter: grayscale(20%);
 }
+.start-image {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 25px;
+    overflow: hidden;
+    border-radius: 12px;
+}
 
-.intro-icon {
-    font-size: 80px;
+.start-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-    margin-bottom: 10px;
+.eyebrow {
+    margin: 0 0 12px;
 
-    filter: grayscale(20%);
+    color: #b51f1f;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
 }
 
 
