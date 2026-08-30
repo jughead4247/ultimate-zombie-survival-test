@@ -476,6 +476,15 @@ box-shadow:
 QUIZ NAVIGATION
 ================================ */
 
+/*
+Small rectangular navigation buttons.
+
+Back  -> bottom left
+Next  -> bottom right
+
+Submit replaces Next on final question.
+*/
+
 #quiz-navigation {
 display: flex;
 
@@ -493,20 +502,7 @@ min-height: 36px;
 
 }
 
-/* Back button - bottom LEFT */
-
-#back-btn {
-margin-right: auto;
-}
-
-/* Next / Submit - bottom RIGHT */
-
-#next-btn,
-#submit-btn {
-margin-left: auto;
-}
-
-/* Small rectangular buttons */
+/* Back / Next / Submit */
 
 #back-btn,
 #next-btn,
@@ -596,7 +592,7 @@ opacity: 0.75;
 
 }
 
-/* Hidden buttons */
+/* Hidden navigation elements */
 
 #back-btn.hidden,
 #next-btn.hidden,
