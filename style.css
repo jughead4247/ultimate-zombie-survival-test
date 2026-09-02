@@ -535,6 +535,7 @@ h2 {
     margin-top: 10px;
 
     font-size: clamp(30px, 7vw, 46px);
+    text-align: center;
 }
 
 .result-score {
