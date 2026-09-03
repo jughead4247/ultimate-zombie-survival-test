@@ -1541,19 +1541,75 @@ const siteMenu = document.getElementById("site-menu");
 
 if (menuToggle && siteMenu) {
 
-    menuToggle.addEventListener("click", function () {
+    // OPEN / CLOSE WITH HAMBURGER
+    menuToggle.addEventListener("click", function (event) {
 
-        siteMenu.hidden = false;
+        event.stopPropagation();
+
+        const isOpen =
+            menuToggle.getAttribute("aria-expanded") === "true";
+
+        siteMenu.hidden = isOpen;
 
         menuToggle.setAttribute(
             "aria-expanded",
-            "true"
+            String(!isOpen)
         );
 
         menuToggle.setAttribute(
             "aria-label",
-            "Close navigation"
+            isOpen
+                ? "Open navigation"
+                : "Close navigation"
         );
+
+    });
+
+
+    // CLOSE WHEN CLICKING OUTSIDE
+    document.addEventListener("click", function (event) {
+
+        if (
+            !siteMenu.hidden &&
+            !siteMenu.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+
+            siteMenu.hidden = true;
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+
+        }
+
+    });
+
+
+    // CLOSE AFTER CLICKING A MENU LINK
+    siteMenu.querySelectorAll("a").forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            siteMenu.hidden = true;
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+
+        });
 
     });
 
