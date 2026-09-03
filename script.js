@@ -1607,3 +1607,7 @@ if (menuToggle && siteMenu) {
     );
 }
 
+document.getElementById("menu-toggle").onclick = function () {
+    alert("MENU CLICKED");
+};
+
