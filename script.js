@@ -1339,7 +1339,7 @@ function showResult() {
         title = "Apocalypse Survivor";
 
         description =
-            "You're surprisingly difficult to kill. You plan ahead, avoid unnecessary risks and understand that other survivors can be dangerous.";
+            "You're surprisingly difficult to take down. You plan ahead, avoid unnecessary risks and understand that other survivors can be dangerous.";
 
         survival = "Several months to several years";
 
